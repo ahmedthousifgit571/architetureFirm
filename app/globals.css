@@ -1,0 +1,129 @@
+/* External @import rules MUST come before @import "tailwindcss" */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=satoshi@400,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Architectural modernism palette */
+  --color-plaster: #f5f2ed;   /* warm plaster — content backgrounds */
+  --color-graphite: #1a1a1a;  /* deep graphite — cinematic zone + footer */
+  --color-oxide: #b4552d;     /* oxide red — hairlines, numbers, CTA only */
+  --color-concrete: #8c8a85;  /* concrete grey — secondary text */
+
+  /* Material tones for project placeholder blocks */
+  --color-limewash: #e7e1d6;
+  --color-boardform: #6f6d68;
+  --color-charred: #2b2a28;
+  --color-rammed: #a3866a;
+
+  --font-display: "Clash Display", "Satoshi", sans-serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
+  --font-grotesk: "Space Grotesk", ui-monospace, monospace;
+}
+
+html {
+  background: var(--color-graphite);
+}
+
+body {
+  margin: 0;
+  background: var(--color-graphite);
+  color: var(--color-plaster);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-oxide);
+  color: var(--color-plaster);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-oxide);
+  outline-offset: 3px;
+}
+
+/* Lenis recommended styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ————— Blueprint / drawing-sheet motif ————— */
+
+/* Sheet reference label: SHT 01 — PHILOSOPHY */
+.sheet-label {
+  font-family: var(--font-grotesk);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* Dimension line: 1px rule with vertical end ticks */
+.dim-line {
+  position: relative;
+  height: 1px;
+  background: currentColor;
+}
+.dim-line::before,
+.dim-line::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 9px;
+  background: currentColor;
+}
+.dim-line::before {
+  left: 0;
+}
+.dim-line::after {
+  right: 0;
+}
+
+/* Hero scroll cue — thin line drawing itself downward */
+@keyframes cue-draw {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.scroll-cue {
+  animation: cue-draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
