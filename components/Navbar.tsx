@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type MouseEvent } from "react";
-import { BRAND_NAME } from "@/lib/constants";
+import { BRAND_NAME, BRAND_CITY, BRAND_COORDS } from "@/lib/constants";
 import { getLenis } from "@/hooks/useLenis";
 
 const LINKS = [
@@ -16,6 +16,7 @@ export default function Navbar() {
   // zones, footer) — light wordmark, transparent bar. Over plaster content
   // it flips to a solid plaster bar with graphite ink.
   const [dark, setDark] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let raf = 0;
@@ -41,6 +42,31 @@ export default function Navbar() {
     };
   }, []);
 
+  // Menu open: freeze the page (Lenis + native fallback), Esc to close,
+  // auto-close if the viewport grows past the md breakpoint.
+  useEffect(() => {
+    if (!open) return;
+    getLenis()?.stop();
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onResize = () => {
+      if (mq.matches) setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    mq.addEventListener("change", onResize);
+
+    return () => {
+      getLenis()?.start();
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+      mq.removeEventListener("change", onResize);
+    };
+  }, [open]);
+
   const scrollTo = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const lenis = getLenis();
@@ -53,19 +79,33 @@ export default function Navbar() {
     }
   };
 
-  const ink = dark ? "text-plaster" : "text-graphite";
-  const inkDim = dark ? "text-plaster/70 hover:text-plaster" : "text-graphite/60 hover:text-oxide";
+  const onMenuLink = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Unlock before scrolling — a stopped Lenis ignores scrollTo
+    document.body.style.overflow = "";
+    getLenis()?.start();
+    setOpen(false);
+    scrollTo(e, href);
+  };
+
+  const lightInk = dark || open;
+  const ink = lightInk ? "text-plaster" : "text-graphite";
+  const inkDim = lightInk
+    ? "text-plaster/70 hover:text-plaster"
+    : "text-graphite/60 hover:text-oxide";
+  const barInk = lightInk ? "bg-plaster" : "bg-graphite";
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-[100] transition-colors duration-300 ${
-        dark ? "border-b border-transparent bg-transparent" : "border-b border-graphite/10 bg-plaster/95"
+        dark || open
+          ? "border-b border-transparent bg-transparent"
+          : "border-b border-graphite/10 bg-plaster/95"
       }`}
     >
       <nav className="flex h-16 items-center justify-between px-6 md:px-12" aria-label="Main">
         <a
           href="#top"
-          onClick={(e) => scrollTo(e, "#top")}
+          onClick={(e) => (open ? onMenuLink(e, "#top") : scrollTo(e, "#top"))}
           className={`font-display text-sm font-semibold tracking-[-0.01em] ${ink}`}
         >
           {BRAND_NAME}
@@ -86,15 +126,76 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile: contact only */}
-        <a
-          href="#contact"
-          onClick={(e) => scrollTo(e, "#contact")}
-          className={`sheet-label md:hidden ${inkDim}`}
+        {/* Mobile: menu toggle */}
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="relative -mr-2 flex h-10 w-10 items-center justify-center md:hidden"
         >
-          CONTACT
-        </a>
+          <span
+            aria-hidden
+            className={`absolute h-px w-6 transition-transform duration-300 ${barInk} ${
+              open ? "rotate-45" : "-translate-y-1"
+            }`}
+          />
+          <span
+            aria-hidden
+            className={`absolute h-px w-6 transition-transform duration-300 ${barInk} ${
+              open ? "-rotate-45" : "translate-y-1"
+            }`}
+          />
+        </button>
       </nav>
+
+      {/* Mobile menu overlay — sheet-index style, under the bar so the X stays visible */}
+      <div
+        id="mobile-menu"
+        aria-hidden={!open}
+        className={`fixed inset-0 -z-10 flex flex-col justify-between bg-graphite px-6 pb-10 pt-28 transition-[clip-path] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] md:hidden ${
+          open ? "[clip-path:inset(0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"
+        }`}
+      >
+        <nav aria-label="Mobile">
+          <p className="sheet-label mb-8 text-plaster/40">SHT IX — INDEX</p>
+          <ul className="flex flex-col">
+            {LINKS.map((l, i) => (
+              <li
+                key={l.href}
+                className={`border-b border-plaster/10 transition-all duration-500 ${
+                  open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+                }`}
+                style={{ transitionDelay: open ? `${150 + i * 60}ms` : "0ms" }}
+              >
+                <a
+                  href={l.href}
+                  onClick={(e) => onMenuLink(e, l.href)}
+                  tabIndex={open ? 0 : -1}
+                  className="group flex items-baseline gap-5 py-5"
+                >
+                  <span className="sheet-label text-oxide">0{i + 1}</span>
+                  <span className="font-display text-4xl font-medium tracking-[-0.02em] text-plaster transition-colors duration-200 group-hover:text-plaster/70">
+                    {l.label}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div
+          className={`transition-all delay-300 duration-500 ${
+            open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+          }`}
+        >
+          <div className="dim-line mb-6 w-16 text-oxide" aria-hidden />
+          <p className="sheet-label text-plaster/50">
+            {BRAND_COORDS}&ensp;·&ensp;{BRAND_CITY}
+          </p>
+        </div>
+      </div>
     </header>
   );
 }
