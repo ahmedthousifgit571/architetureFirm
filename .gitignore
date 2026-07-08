@@ -32,8 +32,10 @@ next-env.d.ts
 .vercel
 
 # raw frame exports — source material only; the app serves the
-# optimized copies in /public/frames and /public/frames-interior
+# optimized copies in /public/frames* and /public/frames-interior*
 /foundationFrames/
 /interiordroneFrames/
+/foundationframesMobile/
+/interiorframesMobile/
 
 BUILD-GUIDE.md

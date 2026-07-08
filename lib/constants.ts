@@ -13,6 +13,7 @@ export const INTERIOR_VH = 500; // height of the interior flythrough section in 
 
 export interface FrameSet {
   basePath: string;
+  mobileBasePath?: string; // portrait 9:16 set, same naming/count — served to portrait mobile viewports
   prefix: string;
   ext: string;
   pad: number;
@@ -27,6 +28,7 @@ export interface FrameSet {
 //   mobileStep  8 →  38 frames ≈ 140 MB × 2 zones = 280 MB (≤ 400 MB budget)
 export const FOUNDATION_FRAMES: FrameSet = {
   basePath: "/frames/",
+  mobileBasePath: "/frames-mobile/", // 720×1280 portrait renders of the same flythrough
   prefix: "frame-",
   ext: "jpg",
   pad: 3,
@@ -37,6 +39,7 @@ export const FOUNDATION_FRAMES: FrameSet = {
 
 export const INTERIOR_FRAMES: FrameSet = {
   basePath: "/frames-interior/",
+  mobileBasePath: "/frames-interior-mobile/", // 720×1280 portrait renders of the same walkthrough
   prefix: "frame-",
   ext: "jpg",
   pad: 3,
@@ -45,12 +48,15 @@ export const INTERIOR_FRAMES: FrameSet = {
   mobileStep: 8,
 };
 
-export function buildFrameUrls(set: FrameSet, isMobile: boolean): string[] {
+export function buildFrameUrls(set: FrameSet, isMobile: boolean, isPortrait = false): string[] {
   const step = isMobile ? set.mobileStep : set.desktopStep;
+  // Portrait phones get the vertical frame set when one exists; landscape
+  // mobile and desktop always use the base set (cover.ts letterboxes odd fits)
+  const base = isMobile && isPortrait && set.mobileBasePath ? set.mobileBasePath : set.basePath;
   const urls: string[] = [];
   for (let n = 1; n <= set.total; n += step) {
     const padded = String(n).padStart(set.pad, "0");
-    urls.push(`${set.basePath}${set.prefix}${padded}.${set.ext}`);
+    urls.push(`${base}${set.prefix}${padded}.${set.ext}`);
   }
   return urls;
 }

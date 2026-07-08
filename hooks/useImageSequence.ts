@@ -7,6 +7,10 @@ function detectMobile(): boolean {
   return window.matchMedia("(max-width: 1023px), (pointer: coarse)").matches;
 }
 
+function detectPortrait(): boolean {
+  return window.matchMedia("(orientation: portrait)").matches;
+}
+
 export function useImageSequence(set: FrameSet) {
   const [frames, setFrames] = useState<HTMLImageElement[]>([]);
   const [progress, setProgress] = useState(0);
@@ -14,7 +18,7 @@ export function useImageSequence(set: FrameSet) {
 
   useEffect(() => {
     let cancelled = false;
-    const urls = buildFrameUrls(set, detectMobile());
+    const urls = buildFrameUrls(set, detectMobile(), detectPortrait());
     const imgs: HTMLImageElement[] = new Array(urls.length);
     let loaded = 0;
 
