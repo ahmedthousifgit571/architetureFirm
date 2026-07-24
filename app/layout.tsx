@@ -14,7 +14,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      {/* suppressHydrationWarning: browser extensions (e.g. ColorZilla adds
+          cz-shortcut-listen) mutate <body> before hydration — harmless, so we
+          silence the attribute mismatch React would otherwise warn about. */}
+      <body suppressHydrationWarning>
         <GSAPProvider>
           <SequenceProvider>
             <Loader />

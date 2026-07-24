@@ -3,26 +3,20 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { INTERIOR_VH, INTERIOR_FRAMES } from "@/lib/constants";
-import { useImageSequence } from "@/hooks/useImageSequence";
-import { useCanvasSequence } from "@/hooks/useCanvasSequence";
+import { INTERIOR_VH } from "@/lib/constants";
+import VideoBackground from "./VideoBackground";
 
 /**
- * Second cinematic zone: interior drone flythrough, scrubbed by scroll.
- * Loads its own frame set independently — it does not gate the page loader,
- * it simply paints as soon as its frames arrive (long before the viewer
- * scrolls past Projects).
+ * Second cinematic zone: a looping background video (the interior frame set was
+ * removed, so it shares the construction clip). Short pin — the caption fades
+ * out over the first stretch of scroll, then the section releases into content.
  */
 export default function InteriorZone() {
-  const { frames } = useImageSequence(INTERIOR_FRAMES);
   const zoneRef = useRef<HTMLElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const captionRef = useRef<HTMLDivElement | null>(null);
 
-  useCanvasSequence({ frames, canvasRef, scrollContainerRef: zoneRef });
-
-  // Caption fades + blurs out over the first 25% of the zone — same
-  // language as the hero, so the camera travel is unobstructed.
+  // Caption fades + blurs out over the first 25% of the zone — same language as
+  // the hero, so the footage is unobstructed as you scroll on.
   useEffect(() => {
     if (!captionRef.current || !zoneRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
@@ -52,7 +46,7 @@ export default function InteriorZone() {
       aria-label="Interior flythrough — inside the finished villa"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden />
+        <VideoBackground />
         {/* Scrim for caption legibility */}
         <div
           className="pointer-events-none absolute inset-0"

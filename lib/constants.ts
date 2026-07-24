@@ -8,8 +8,12 @@ export const BRAND_CITY = "ZÜRICH";
 export const BRAND_COORDS = "47.3769° N / 8.5417° E";
 
 export const ZOOM_FACTOR = 1.15; // hides edge artifacts; provides parallax headroom
-export const CINEMATIC_VH = 600; // height of the foundation sticky-canvas section in vh
-export const INTERIOR_VH = 500; // height of the interior flythrough section in vh
+// Foundation hero: a looping background video (no scroll scrub), so it only
+// needs a short pin — one viewport for the video + ~half a viewport for the
+// hero to fade out, then it releases into content. (Was 600vh for the old
+// frame scrub, which left ~5 screens of dead scroll once the video replaced it.)
+export const CINEMATIC_VH = 150; // height of the foundation hero section in vh
+export const INTERIOR_VH = 150; // height of the interior video section in vh (was a 500vh scrub)
 
 export interface FrameSet {
   basePath: string;

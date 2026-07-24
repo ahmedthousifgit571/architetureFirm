@@ -2,23 +2,28 @@
 
 import { useState, useEffect } from "react";
 import { buildFrameUrls, type FrameSet } from "@/lib/constants";
+import { isMobileViewport, isPortraitViewport } from "@/lib/device";
 
-function detectMobile(): boolean {
-  return window.matchMedia("(max-width: 1023px), (pointer: coarse)").matches;
+interface Options {
+  // When true, the sequence is never loaded — a video background replaces the
+  // frame scrub, so pulling the frames would just be wasted bandwidth. `ready`
+  // flips immediately so the loader clears.
+  skip?: boolean;
 }
 
-function detectPortrait(): boolean {
-  return window.matchMedia("(orientation: portrait)").matches;
-}
-
-export function useImageSequence(set: FrameSet) {
+export function useImageSequence(set: FrameSet, options: Options = {}) {
   const [frames, setFrames] = useState<HTMLImageElement[]>([]);
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    if (options.skip) {
+      setReady(true); // no frames to load — clear the loader right away
+      return;
+    }
+
     let cancelled = false;
-    const urls = buildFrameUrls(set, detectMobile(), detectPortrait());
+    const urls = buildFrameUrls(set, isMobileViewport(), isPortraitViewport());
     const imgs: HTMLImageElement[] = new Array(urls.length);
     let loaded = 0;
 

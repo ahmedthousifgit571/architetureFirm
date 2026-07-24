@@ -25,8 +25,12 @@ export function useSequence(): SequenceState {
  * Loader (in layout) reads progress/ready, CinematicZone (in page) reads
  * frames — one load, shared everywhere. The interior sequence loads
  * independently inside InteriorZone and does not block the loader.
+ *
+ * skip: the foundation zone now uses a background video on every viewport, so
+ * the heavy frame set is never fetched — the page loads fast and `ready` flips
+ * immediately (the video's poster paints the first frame with no gap).
  */
 export default function SequenceProvider({ children }: { children: React.ReactNode }) {
-  const state = useImageSequence(FOUNDATION_FRAMES);
+  const state = useImageSequence(FOUNDATION_FRAMES, { skip: true });
   return <SequenceContext.Provider value={state}>{children}</SequenceContext.Provider>;
 }
