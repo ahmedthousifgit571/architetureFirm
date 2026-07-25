@@ -29,14 +29,30 @@ export default function VideoBackground() {
     if (!v) return;
     v.muted = true; // belt-and-suspenders: satisfies the muted-autoplay policy
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; // hold the poster
+
+    // Some environments block even muted autoplay (iOS Low Power Mode, mobile
+    // data-saver, strict policies). If play() is rejected, start on the first
+    // user gesture instead — the poster holds until then.
+    const gestures = ["pointerdown", "touchstart", "scroll", "keydown"] as const;
+    const startOnGesture = () => {
+      v.play().catch(() => {});
+      removeGestures();
+    };
+    const removeGestures = () =>
+      gestures.forEach((g) => window.removeEventListener(g, startOnGesture));
+    const addGestures = () =>
+      gestures.forEach((g) => window.addEventListener(g, startOnGesture, { passive: true }));
+
     const play = () => {
-      v.play().catch(() => {
-        /* autoplay may still be blocked — poster remains, no crash */
-      });
+      v.play().catch(addGestures); // autoplay blocked → fall back to a gesture
     };
     if (v.readyState >= 2) play();
     else v.addEventListener("canplay", play, { once: true });
-    return () => v.removeEventListener("canplay", play);
+
+    return () => {
+      v.removeEventListener("canplay", play);
+      removeGestures();
+    };
   }, []);
 
   return (
