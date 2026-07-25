@@ -22,35 +22,48 @@ export default function VideoBackground() {
     typeof window !== "undefined" && isMobileViewport() ? MOBILE : DESKTOP,
   );
 
-  // Start playback as soon as the clip can play. `poster` (frame 0 of the same
-  // video) covers the gap before then, so there is never a blank frame.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.muted = true; // belt-and-suspenders: satisfies the muted-autoplay policy
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; // hold the poster
 
-    // Some environments block even muted autoplay (iOS Low Power Mode, mobile
-    // data-saver, strict policies). If play() is rejected, start on the first
-    // user gesture instead — the poster holds until then.
+    // React does not reliably reflect the `muted` attribute to the DOM property,
+    // and iOS refuses inline autoplay unless the element is genuinely muted.
+    v.muted = true;
+    v.defaultMuted = true;
+
+    // Respect reduced motion: hold the poster, don't play.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      v.removeAttribute("autoplay");
+      v.pause();
+      return;
+    }
+
+    // If even muted autoplay is blocked (iOS Low Power Mode, data-saver, strict
+    // policies), start on the first user gesture. The poster holds until then.
     const gestures = ["pointerdown", "touchstart", "scroll", "keydown"] as const;
+    const removeGestures = () =>
+      gestures.forEach((g) => window.removeEventListener(g, startOnGesture));
     const startOnGesture = () => {
       v.play().catch(() => {});
       removeGestures();
     };
-    const removeGestures = () =>
-      gestures.forEach((g) => window.removeEventListener(g, startOnGesture));
     const addGestures = () =>
       gestures.forEach((g) => window.addEventListener(g, startOnGesture, { passive: true }));
 
-    const play = () => {
-      v.play().catch(addGestures); // autoplay blocked → fall back to a gesture
+    // Call play() directly — on iOS this also kicks off loading, which the
+    // browser may otherwise defer (so waiting for `canplay` can hang forever).
+    const attempt = () => {
+      const p = v.play();
+      if (p && typeof p.catch === "function") p.catch(addGestures);
     };
-    if (v.readyState >= 2) play();
-    else v.addEventListener("canplay", play, { once: true });
+    attempt();
+    // Retry once the media is actually ready, in case the first call was too early.
+    v.addEventListener("loadeddata", attempt, { once: true });
+    v.addEventListener("canplay", attempt, { once: true });
 
     return () => {
-      v.removeEventListener("canplay", play);
+      v.removeEventListener("loadeddata", attempt);
+      v.removeEventListener("canplay", attempt);
       removeGestures();
     };
   }, []);
@@ -60,6 +73,7 @@ export default function VideoBackground() {
       ref={videoRef}
       className="absolute inset-0 h-full w-full object-cover"
       poster={clip.poster}
+      autoPlay
       muted
       loop
       playsInline
