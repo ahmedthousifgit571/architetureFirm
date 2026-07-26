@@ -75,11 +75,7 @@ export default function Hero({ cinematicRef }: Props) {
         </div>
       </div>
 
-      <div data-hero className="mt-14 flex items-end justify-between">
-        <div className="flex items-center gap-4">
-          <div className="scroll-cue h-14 w-px bg-oxide" aria-hidden />
-          <p className="sheet-label text-plaster/50">SCROLL TO BUILD</p>
-        </div>
+      <div data-hero className="mt-14 flex items-end justify-end">
         <p className="sheet-label hidden text-plaster/40 sm:block">
           FOUNDATION —&gt; MASTERPIECE&ensp;·&ensp;360° SURVEY
         </p>

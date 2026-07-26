@@ -46,7 +46,7 @@ export default function InteriorZone() {
       aria-label="Interior flythrough — inside the finished villa"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <VideoBackground />
+        <VideoBackground desktop={{ src: "/sitetransformation.mp4" }} mobile={{ src: "/siteMobileview.mp4" }} className="scale-[1.35] md:scale-100" />
         {/* Scrim for caption legibility */}
         <div
           className="pointer-events-none absolute inset-0"

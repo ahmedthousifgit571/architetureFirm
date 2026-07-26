@@ -5,8 +5,14 @@ import { isMobileViewport } from "@/lib/device";
 
 // Portrait clip for phones, landscape clip for desktop — both muted, looping,
 // no audio track, encoded +faststart so playback starts without buffering.
-const DESKTOP = { src: "/constructiondesktop.mp4", poster: "/constructiondesktop-poster.jpg" };
-const MOBILE = { src: "/constructionMobile.mp4", poster: "/constructionMobile-poster.jpg" };
+const DEFAULT_DESKTOP = { src: "/constructiondesktop.mp4", poster: "/constructiondesktop-poster.jpg" };
+const DEFAULT_MOBILE = { src: "/constructionMobile.mp4", poster: "/constructionMobile-poster.jpg" };
+
+interface VideoBackgroundProps {
+  desktop?: { src: string; poster?: string };
+  mobile?: { src: string; poster?: string };
+  className?: string;
+}
 
 /**
  * Full-bleed background video for the cinematic zones. Absolutely positioned —
@@ -16,10 +22,10 @@ const MOBILE = { src: "/constructionMobile.mp4", poster: "/constructionMobile-po
  * the matchMedia read in the initializer is safe and picks the right clip on
  * the first paint with no desktop→mobile swap flash.
  */
-export default function VideoBackground() {
+export default function VideoBackground({ desktop = DEFAULT_DESKTOP, mobile = DEFAULT_MOBILE, className = "" }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [clip] = useState(() =>
-    typeof window !== "undefined" && isMobileViewport() ? MOBILE : DESKTOP,
+    typeof window !== "undefined" && isMobileViewport() ? mobile : desktop,
   );
 
   useEffect(() => {
@@ -71,7 +77,7 @@ export default function VideoBackground() {
   return (
     <video
       ref={videoRef}
-      className="absolute inset-0 h-full w-full object-cover"
+      className={`absolute inset-0 h-full w-full object-cover ${className}`}
       poster={clip.poster}
       autoPlay
       muted

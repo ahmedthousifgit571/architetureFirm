@@ -5,6 +5,7 @@ import GSAPProvider from "@/components/GSAPProvider";
 import SequenceProvider from "@/components/SequenceProvider";
 import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: `${BRAND_NAME} — Architecture Studio`,
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Loader />
             <Navbar />
             {children}
+            <WhatsAppButton />
           </SequenceProvider>
         </GSAPProvider>
       </body>

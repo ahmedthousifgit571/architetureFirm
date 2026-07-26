@@ -5,9 +5,9 @@ import { BRAND_NAME, BRAND_CITY, BRAND_COORDS } from "@/lib/constants";
 import { getLenis } from "@/hooks/useLenis";
 
 const LINKS = [
+  { label: "ABOUT", href: "#about" },
   { label: "PROJECTS", href: "#projects" },
   { label: "PROCESS", href: "#process" },
-  { label: "STUDIO", href: "#studio" },
   { label: "CONTACT", href: "#contact" },
 ];
 

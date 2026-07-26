@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReveal } from "@/hooks/useReveal";
 import DimLine from "@/components/DimLine";
 
-const STATEMENT = "From poured foundation to finished form — precision is the material.";
+const STATEMENT = "From poured foundation to finished form  precision is the material.";
 
 const SCOPE = [
   { no: "01", name: "ARCHITECTURE", scope: "HOUSES · VILLAS · CIVIC ROOMS", phase: "CONCEPT TO PERMIT" },

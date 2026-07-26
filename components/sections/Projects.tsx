@@ -17,38 +17,38 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     index: "01",
-    name: "VILLA MERIDIAN",
+    name: "BVK BRINDAVAN",
     spec: "LAKE ZÜRICH · 2025 · 640 M²",
     material: "LIMEWASH PLASTER",
-    image: "/images/arc-1.png",
+    image: "/images/TWO BLOCKS. OF G+10 APARTMENTS.png",
     span: "md:col-span-7",
     height: "h-72 md:h-[480px]",
   },
   {
     index: "02",
-    name: "HAUS KAMEN",
+    name: "VLUX 3 STAR HOTEL",
     spec: "BASEL · 2024 · 380 M²",
     material: "BOARD-FORMED CONCRETE",
-    image: "/images/arc-2.png",
-    span: "md:col-span-5 md:mt-24",
+    image: "/images/VLUX – 3 STAR HOTEL.png",
+    span: "md:col-span-5 md:mt-12",
     height: "h-72 md:h-[360px]",
   },
   {
     index: "03",
-    name: "CASA TERRA",
+    name: "GOVT HALL",
     spec: "TICINO · 2023 · 520 M²",
     material: "RAMMED EARTH",
-    image: "/images/arc-3.webp",
+    image: "/images/govt1.png",
     span: "md:col-span-5",
     height: "h-72 md:h-[360px]",
   },
   {
     index: "04",
-    name: "THE FOLD",
+    name: "INTERIOR FOLD",
     spec: "KYOTO · 2023 · 290 M²",
     material: "CHARRED TIMBER",
-    image: "/images/arc-4.png",
-    span: "md:col-span-7 md:-mt-24",
+    image: "/images/interior.png",
+    span: "md:col-span-7 md:-mt-12",
     height: "h-72 md:h-[480px]",
   },
 ];
@@ -80,20 +80,12 @@ export default function Projects() {
                   sizes="(min-width: 768px) 60vw, 100vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
-                {/* Scrim for material-label legibility */}
-                <div
-                  className="pointer-events-none absolute inset-0 bg-linear-to-t from-graphite/70 via-transparent to-transparent"
-                  aria-hidden
-                />
                 {/* Oxide index — surfaces on hover */}
                 <span
                   className="absolute left-5 top-4 font-grotesk text-4xl tabular-nums text-oxide opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-2"
                   aria-hidden
                 >
                   {p.index}
-                </span>
-                <span className="absolute bottom-4 left-5 font-grotesk text-[10px] tracking-[0.25em] text-plaster/80">
-                  {p.material}
                 </span>
               </div>
               <div className="mt-4 flex items-baseline justify-between gap-4">

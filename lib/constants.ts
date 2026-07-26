@@ -1,9 +1,16 @@
 // Single source of truth for brand + cinematic configuration.
 // Pure module — safe to import from server and client code.
 
-export const BRAND_NAME = "ATELIER FORM";
+export const BRAND_NAME = "SRRI POSITIVE BUILDERS";
 export const BRAND_TAGLINE = "We take you from foundation to masterpiece.";
-export const BRAND_EMAIL = "studio@atelierform.com";
+export const BRAND_EMAIL = "studio@srripositivebuilders.com";
+
+// WhatsApp: wa.me needs the country code with no "+" (India = 91). The prefilled
+// message avoids double dashes so it reads cleanly in the WhatsApp composer.
+export const BRAND_PHONE = "+91 98431 51533";
+export const BRAND_WHATSAPP = "919843151533";
+export const BRAND_WHATSAPP_MESSAGE =
+  "Hello SRRI Positive Builders, I'm interested in starting a construction project and would like to know more about your services.";
 export const BRAND_CITY = "ZÜRICH";
 export const BRAND_COORDS = "47.3769° N / 8.5417° E";
 
