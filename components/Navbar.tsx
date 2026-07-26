@@ -7,7 +7,7 @@ import { getLenis } from "@/hooks/useLenis";
 const LINKS = [
   { label: "ABOUT", href: "#about" },
   { label: "PROJECTS", href: "#projects" },
-  { label: "PROCESS", href: "#process" },
+  { label: "SERVICES", href: "#philosophy" },
   { label: "CONTACT", href: "#contact" },
 ];
 
@@ -90,7 +90,7 @@ export default function Navbar() {
   const lightInk = dark || open;
   const ink = lightInk ? "text-plaster" : "text-graphite";
   const inkDim = lightInk
-    ? "text-plaster/70 hover:text-plaster"
+    ? "text-plaster/70 hover:text-oxide"
     : "text-graphite/60 hover:text-oxide";
   const barInk = lightInk ? "bg-plaster" : "bg-graphite";
 

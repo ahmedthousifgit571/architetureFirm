@@ -53,6 +53,10 @@ const PROJECTS: Project[] = [
   },
 ];
 
+// oxide-outlined CTA — visible at rest (oxide border + oxide ink), fills oxide on hover
+const CTA_CLASS =
+  "group inline-flex items-center gap-3 border border-oxide px-7 py-4 font-grotesk text-[11px] tracking-[0.25em] text-oxide transition-colors duration-300 hover:bg-oxide hover:text-plaster focus-visible:bg-oxide focus-visible:text-plaster";
+
 export default function Projects() {
   const ref = useRef<HTMLElement | null>(null);
   useReveal(ref);
@@ -97,6 +101,18 @@ export default function Projects() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div data-reveal className="mt-20 flex justify-center">
+          <a href="#" className={CTA_CLASS}>
+            VIEW MORE
+            <span
+              aria-hidden
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
         </div>
       </div>
     </section>

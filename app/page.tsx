@@ -2,7 +2,7 @@ import CinematicZoneLoader from "@/components/CinematicZoneLoader";
 import InteriorZoneLoader from "@/components/InteriorZoneLoader";
 import Manifesto from "@/components/sections/Manifesto";
 import Projects from "@/components/sections/Projects";
-import Process from "@/components/sections/Process";
+import Clients from "@/components/sections/Clients";
 import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
@@ -22,7 +22,7 @@ export default function Home() {
         {/* INTERIOR CINEMATIC ZONE — second scrubbed flythrough, inside the villa */}
         <InteriorZoneLoader />
 
-        <Process />
+        <Clients />
         <Contact />
         <Footer />
       </main>

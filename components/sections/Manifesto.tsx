@@ -9,10 +9,13 @@ import DimLine from "@/components/DimLine";
 const STATEMENT = "From poured foundation to finished form  precision is the material.";
 
 const SCOPE = [
-  { no: "01", name: "ARCHITECTURE", scope: "HOUSES · VILLAS · CIVIC ROOMS", phase: "CONCEPT TO PERMIT" },
-  { no: "02", name: "INTERIORS", scope: "MATERIAL · LIGHT · JOINERY", phase: "FULL DOCUMENTATION" },
-  { no: "03", name: "ENGINEERING", scope: "STRUCTURE · ENVELOPE · SERVICES", phase: "IN-HOUSE" },
-  { no: "04", name: "SUPERVISION", scope: "WEEKLY SITE PRESENCE", phase: "TO HANDOVER" },
+  { no: "01", name: "RESIDENTIAL PROJECTS", href: "#" },
+  { no: "02", name: "COMMERCIAL PROJECTS", href: "#" },
+  { no: "03", name: "APARTMENT PROJECTS", href: "#" },
+  { no: "04", name: "ROADS & CULVERTS", href: "#" },
+  { no: "05", name: "GOVERNMENT PROJECTS", href: "#" },
+  { no: "06", name: "INTERIOR PROJECTS", href: "#" },
+  { no: "07", name: "RELIGIOUS PROJECTS", href: "#" },
 ];
 
 export default function Manifesto() {
@@ -96,7 +99,7 @@ export default function Manifesto() {
 
         <p data-reveal className="mt-14 max-w-xl font-body text-base leading-relaxed text-concrete">
           We practice architecture as construction, not decoration. Every project begins in the
-          ground — soil, datum, load — and rises through a discipline of grids, junctions and
+          ground  soil, datum, load  and rises through a discipline of grids, junctions and
           honest material. What remains is quiet, exact, and built to outlast its authors.
         </p>
 
@@ -107,24 +110,24 @@ export default function Manifesto() {
           </p>
           <div className="md:col-span-9">
             {SCOPE.map((row) => (
-              <div
+              <a
                 key={row.no}
+                href={row.href}
                 data-row
-                className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-4 border-b border-graphite/10 py-5 transition-colors duration-300 first:border-t hover:bg-graphite/[0.03] md:grid-cols-[3rem_1fr_1fr_auto]"
+                className="group flex items-center justify-between border-b border-graphite/10 py-5 transition-colors duration-300 first:border-t hover:bg-oxide px-4 -mx-4 block"
               >
-                <span className="font-grotesk text-[10px] tracking-[0.25em] text-oxide">
-                  {row.no}
+                <div className="flex items-baseline gap-6">
+                  <span className="font-grotesk w-8 text-[10px] tracking-[0.25em] text-oxide shrink-0 transition-colors duration-300 group-hover:text-white">
+                    {row.no}
+                  </span>
+                  <span className="font-display text-lg uppercase font-medium tracking-[-0.01em] transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-white md:text-xl">
+                    {row.name}
+                  </span>
+                </div>
+                <span className="font-grotesk text-[10px] tracking-[0.2em] text-concrete transition-colors duration-300 group-hover:text-white">
+                  VIEW DETAILS ↗
                 </span>
-                <span className="font-display text-lg font-medium tracking-[-0.01em] transition-transform duration-300 group-hover:translate-x-1.5 md:text-xl">
-                  {row.name}
-                </span>
-                <span className="hidden font-grotesk text-[10px] tracking-[0.2em] text-concrete md:block">
-                  {row.scope}
-                </span>
-                <span className="font-grotesk text-[10px] tracking-[0.2em] text-concrete transition-colors duration-300 group-hover:text-oxide">
-                  {row.phase}
-                </span>
-              </div>
+              </a>
             ))}
           </div>
         </div>

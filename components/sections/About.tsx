@@ -242,7 +242,7 @@ export default function About() {
             </ul>
 
             <div data-reveal className="mt-10">
-              <a href="#services" onClick={(e) => goTo(e, "#services")} className={CTA_CLASS}>
+              <a href="#philosophy" onClick={(e) => goTo(e, "#philosophy")} className={CTA_CLASS}>
                 EXPLORE SERVICES
                 <span
                   aria-hidden
