@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useReveal } from "@/hooks/useReveal";
 
 interface Project {
@@ -104,7 +105,7 @@ export default function Projects() {
         </div>
 
         <div data-reveal className="mt-20 flex justify-center">
-          <a href="#" className={CTA_CLASS}>
+          <Link href="/projects" className={CTA_CLASS}>
             VIEW MORE
             <span
               aria-hidden
@@ -112,7 +113,7 @@ export default function Projects() {
             >
               →
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

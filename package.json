@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "zip": "C:\\Windows\\System32\\tar.exe -a -c -f site.zip -C out ."
   },
   "dependencies": {
     "gsap": "^3.13.0",

@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useState, type MouseEvent } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BRAND_NAME, BRAND_CITY, BRAND_COORDS } from "@/lib/constants";
 import { getLenis } from "@/hooks/useLenis";
 
 const LINKS = [
-  { label: "ABOUT", href: "#about" },
-  { label: "PROJECTS", href: "#projects" },
-  { label: "SERVICES", href: "#philosophy" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "ABOUT", href: "#about", route: null },
+  { label: "PROJECTS", href: "#projects", route: "/projects" },
+  { label: "SERVICES", href: "#philosophy", route: null },
+  { label: "CONTACT", href: "#contact", route: null },
 ];
 
 export default function Navbar() {
@@ -17,6 +19,8 @@ export default function Navbar() {
   // it flips to a solid plaster bar with graphite ink.
   const [dark, setDark] = useState(true);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     let raf = 0;
@@ -103,27 +107,45 @@ export default function Navbar() {
       }`}
     >
       <nav className="flex h-16 items-center justify-between px-6 md:px-12" aria-label="Main">
-        <a
-          href="#top"
-          onClick={(e) => (open ? onMenuLink(e, "#top") : scrollTo(e, "#top"))}
-          className={`font-display text-sm font-semibold tracking-[-0.01em] ${ink}`}
-        >
-          {BRAND_NAME}
-        </a>
+          <Link
+            href="/"
+            className={`font-display text-sm font-semibold tracking-[-0.01em] ${ink}`}
+          >
+            {BRAND_NAME}
+          </Link>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-8 md:flex">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                onClick={(e) => scrollTo(e, l.href)}
-                className={`sheet-label transition-colors duration-200 ${inkDim}`}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {LINKS.map((l) => {
+            // On homepage: scroll to the section. Off homepage: navigate to route if available.
+            if (isHome || !l.route) {
+              return (
+                <li key={l.href}>
+                  <a
+                    href={isHome ? l.href : `/${l.href}`}
+                    onClick={(e) => {
+                      if (isHome) scrollTo(e, l.href);
+                      // Off-home, anchor links like #about won't exist — let
+                      // them fall through as regular navigation to /<hash>
+                    }}
+                    className={`sheet-label transition-colors duration-200 ${inkDim}`}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              );
+            }
+            return (
+              <li key={l.href}>
+                <Link
+                  href={l.route}
+                  className={`sheet-label transition-colors duration-200 ${inkDim}`}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Mobile: menu toggle */}
@@ -161,27 +183,52 @@ export default function Navbar() {
         <nav aria-label="Mobile">
           <p className="sheet-label mb-8 text-plaster/40">SHT IX — INDEX</p>
           <ul className="flex flex-col">
-            {LINKS.map((l, i) => (
-              <li
-                key={l.href}
-                className={`border-b border-plaster/10 transition-all duration-500 ${
-                  open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-                }`}
-                style={{ transitionDelay: open ? `${150 + i * 60}ms` : "0ms" }}
-              >
-                <a
-                  href={l.href}
-                  onClick={(e) => onMenuLink(e, l.href)}
-                  tabIndex={open ? 0 : -1}
-                  className="group flex items-baseline gap-5 py-5"
-                >
+            {LINKS.map((l, i) => {
+              const linkHref = (!isHome && l.route) ? l.route : l.href;
+              const isRoute = !isHome && l.route;
+              const inner = (
+                <>
                   <span className="sheet-label text-oxide">0{i + 1}</span>
                   <span className="font-display text-4xl font-medium tracking-[-0.02em] text-plaster transition-colors duration-200 group-hover:text-plaster/70">
                     {l.label}
                   </span>
-                </a>
-              </li>
-            ))}
+                </>
+              );
+
+              return (
+                <li
+                  key={l.href}
+                  className={`border-b border-plaster/10 transition-all duration-500 ${
+                    open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+                  }`}
+                  style={{ transitionDelay: open ? `${150 + i * 60}ms` : "0ms" }}
+                >
+                  {isRoute ? (
+                    <Link
+                      href={linkHref}
+                      onClick={() => {
+                        document.body.style.overflow = "";
+                        getLenis()?.start();
+                        setOpen(false);
+                      }}
+                      tabIndex={open ? 0 : -1}
+                      className="group flex items-baseline gap-5 py-5"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <a
+                      href={linkHref}
+                      onClick={(e) => onMenuLink(e, l.href)}
+                      tabIndex={open ? 0 : -1}
+                      className="group flex items-baseline gap-5 py-5"
+                    >
+                      {inner}
+                    </a>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 

@@ -1,56 +1,40 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useReveal } from "@/hooks/useReveal";
 
-/**
- * Client register.
- * Drop each logo (transparent PNG preferred) into `public/images/clients/`
- * using the `file` name below. Until a logo file exists, the cell gracefully
- * falls back to the client's name in type — so the section is never broken.
- */
 const CLIENTS = [
-  { name: "Notch India Projects", file: "notch-india-projects.png" },
-  { name: "Raja Steel", file: "raja-steel.png" },
-  { name: "Southern Properties & Developers", file: "southern-properties.png" },
-  { name: "ZamZam Sweets", file: "zamzam-sweets.png" },
-  { name: "Vishaal Promoters", file: "vishaal-promoters.png" },
-  { name: "Sun Infraa", file: "sun-infraa.png" },
-  { name: "Hi-Tech Arai Pvt Ltd", file: "hi-tech-arai.png" },
-  { name: "Saathveeka Apartments", file: "saathveeka-apartments.png" },
-  { name: "Hyatt Clothing Co", file: "hyatt-clothing.png" },
-  { name: "AK Ahmed & Co", file: "ak-ahmed.png" },
-  { name: "VGP Housing", file: "vgp-housing.png" },
-  { name: "Sahayarani Multispeciality Hospital", file: "sahayarani-hospital.png" },
-  { name: "Pranav Cards", file: "pranav-cards.png" },
-  { name: "MP Steels Corporation", file: "mp-steels.png" },
-  { name: "JS Housing", file: "js-housing.png" },
-  { name: "SR Sanraks", file: "sr-sanraks.png" },
+  "client1.png",
+  "client2.png",
+  "client3.png",
+  "client4.png",
+  "client5.png",
+  "client6.png",
+  "client7.png",
+  "client8.png",
+  "client9.png",
+  "client10.png",
+  "client11.png",
+  "client12.png",
+  "client13.png",
+  "client14.png",
+  "client15.png",
+  "client16.png",
 ];
 
-function ClientCell({ name, file }: { name: string; file: string }) {
-  const [failed, setFailed] = useState(false);
-
+function ClientCell({ file }: { file: string }) {
   return (
     <div
       data-reveal
-      title={name}
       className="group flex min-h-[120px] items-center justify-center border-b border-r border-graphite/10 px-6 py-10 md:min-h-[150px] md:py-14"
     >
-      {failed ? (
-        <span className="text-center font-display text-sm font-medium uppercase leading-tight tracking-[0.02em] text-concrete transition-colors duration-300 group-hover:text-graphite md:text-base">
-          {name}
-        </span>
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={`/images/clients/${file}`}
-          alt={name}
-          loading="lazy"
-          onError={() => setFailed(true)}
-          className="max-h-12 w-auto max-w-[75%] object-contain opacity-60 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0 md:max-h-14"
-        />
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`/images/clients/${file}`}
+        alt={`client logo`}
+        loading="lazy"
+        className="max-h-12 w-auto max-w-[75%] object-contain transition-all duration-500 md:max-h-14"
+      />
     </div>
   );
 }
@@ -99,11 +83,12 @@ export default function Clients() {
 
         {/* Client register — hairline grid, logos in mono, colour on hover */}
         <div className="mt-16 grid grid-cols-2 border-l border-t border-graphite/10 sm:grid-cols-3 lg:grid-cols-4">
-          {CLIENTS.map((c) => (
-            <ClientCell key={c.file} name={c.name} file={c.file} />
+          {CLIENTS.map((file) => (
+            <ClientCell key={file} file={file} />
           ))}
         </div>
       </div>
     </section>
   );
 }
+

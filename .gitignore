@@ -31,6 +31,9 @@ next-env.d.ts
 # vercel
 .vercel
 
+# cPanel upload bundle produced by `npm run zip`
+/site.zip
+
 # raw frame exports — source material only; the app serves the
 # optimized copies in /public/frames* and /public/frames-interior*
 /foundationFrames/

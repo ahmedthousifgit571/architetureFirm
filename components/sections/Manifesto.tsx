@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReveal } from "@/hooks/useReveal";
@@ -9,13 +10,13 @@ import DimLine from "@/components/DimLine";
 const STATEMENT = "From poured foundation to finished form  precision is the material.";
 
 const SCOPE = [
-  { no: "01", name: "RESIDENTIAL PROJECTS", href: "#" },
-  { no: "02", name: "COMMERCIAL PROJECTS", href: "#" },
-  { no: "03", name: "APARTMENT PROJECTS", href: "#" },
-  { no: "04", name: "ROADS & CULVERTS", href: "#" },
-  { no: "05", name: "GOVERNMENT PROJECTS", href: "#" },
-  { no: "06", name: "INTERIOR PROJECTS", href: "#" },
-  { no: "07", name: "RELIGIOUS PROJECTS", href: "#" },
+  { no: "01", name: "RESIDENTIAL PROJECTS", href: "/projects/residential" },
+  { no: "02", name: "COMMERCIAL PROJECTS", href: "/projects/commercial" },
+  { no: "03", name: "APARTMENT PROJECTS", href: "/projects/apartment" },
+  { no: "04", name: "ROADS & CULVERTS", href: "/projects/roads-culverts" },
+  { no: "05", name: "GOVERNMENT PROJECTS", href: "/projects/government" },
+  { no: "06", name: "INTERIOR PROJECTS", href: "/projects/interior" },
+  { no: "07", name: "RELIGIOUS PROJECTS", href: "/projects/religious" },
 ];
 
 export default function Manifesto() {
@@ -110,7 +111,7 @@ export default function Manifesto() {
           </p>
           <div className="md:col-span-9">
             {SCOPE.map((row) => (
-              <a
+              <Link
                 key={row.no}
                 href={row.href}
                 data-row
@@ -127,7 +128,7 @@ export default function Manifesto() {
                 <span className="font-grotesk text-[10px] tracking-[0.2em] text-concrete transition-colors duration-300 group-hover:text-white">
                   VIEW DETAILS ↗
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

@@ -1,0 +1,80 @@
+# Server config for the static export on the client's cPanel host.
+# Lives in public/ so `next build` copies it into out/ on every build.
+#
+# The host runs LiteSpeed, not Apache. LiteSpeed reads .htaccess using
+# Apache syntax, so everything here applies as written.
+
+# ---------------------------------------------------------------------
+# Compression is already handled by LiteSpeed at the server level — the
+# live site returns `Content-Encoding: br`. Declaring mod_deflate rules
+# here would be redundant at best, so compression is deliberately omitted.
+# ---------------------------------------------------------------------
+
+# ---------------------------------------------------------------------
+# Caching. Files under _next/static carry a content hash in the filename,
+# so a changed file is a changed URL — safe to cache forever. HTML must
+# never be cached or a redeploy stays invisible to returning visitors.
+# ---------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------
+# Range requests — the hero videos are seeked/streamed by the browser.
+# Apache serves these by default; this just makes the intent explicit.
+# ---------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+</IfModule>
+
+# ---------------------------------------------------------------------
+# Routing.
+#
+# `trailingSlash: true` in next.config.ts makes the export write every
+# route as <route>/index.html, so DirectoryIndex resolves /projects/ and
+# /projects/residential/ natively. No .html rewriting is needed — and
+# deliberately so: an earlier rewrite here broke /projects, because the
+# export also emitted a projects/ directory that shadowed projects.html.
+# ---------------------------------------------------------------------
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+# ---------------------------------------------------------------------
+# Canonical host + HTTPS.
+#
+# These preserve behaviour the domain ALREADY has — the current live site
+# 301s the apex to https://www and sends a 2-year HSTS header. Uploading
+# this file replaces the existing .htaccess, so dropping either rule would
+# be a regression: the apex would stop redirecting, and browsers that have
+# cached the HSTS policy would still force HTTPS regardless.
+#
+# Safe to enable now: a valid certificate is already live on both the apex
+# and www (AutoSSL has run), so nothing here points at an unsecured URL.
+# ---------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^srripositivebuilders\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.srripositivebuilders.com/$1 [L,R=301]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
