@@ -68,6 +68,40 @@ ErrorDocument 404 /404.html
 # ---------------------------------------------------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # -------------------------------------------------------------------
+  # Legacy URLs from the site this one replaces.
+  #
+  # The previous site had been live since 2022 and every one of these
+  # paths still returns 200 today, so they are indexed. Without 301s they
+  # all become 404s the moment we overwrite public_html, throwing away
+  # the domain's accumulated search ranking.
+  #
+  # These run BEFORE the canonical rule and emit absolute https://www
+  # targets, so a legacy URL resolves in one hop rather than two.
+  #
+  # /index.html deliberately has no rule — the new export puts its own
+  # index.html at that exact path, so it keeps working on its own.
+  # -------------------------------------------------------------------
+
+  # <category>-projects.html maps 1:1 onto the new category slugs.
+  RewriteRule ^(residential|commercial|apartment|government|interior|religious)-projects\.html$ https://www.srripositivebuilders.com/projects/$1/ [L,R=301,NC]
+  RewriteRule ^roads-culverts\.html$ https://www.srripositivebuilders.com/projects/roads-culverts/ [L,R=301,NC]
+
+  # Project index pages.
+  RewriteRule ^(our-projects|completed-projects)\.html$ https://www.srripositivebuilders.com/projects/ [L,R=301,NC]
+
+  # Pages with no direct equivalent — their content now lives on the
+  # single-page home route, so send them there rather than to a 404.
+  RewriteRule ^(about-us|our-clients|contact-us|enquiry|blogs|blog-details|services-details|best-construction-company-in-madurai)\.html$ https://www.srripositivebuilders.com/ [L,R=301,NC]
+
+  # The old contact form handler. The new site uses WhatsApp and tel:
+  # links instead, so nothing server-side replaces it.
+  RewriteRule ^enquiry\.php$ https://www.srripositivebuilders.com/ [L,R=301,NC]
+
+  # -------------------------------------------------------------------
+  # Canonical host + HTTPS — catches everything the rules above did not.
+  # -------------------------------------------------------------------
   RewriteCond %{HTTPS} off [OR]
   RewriteCond %{HTTP_HOST} ^srripositivebuilders\.com$ [NC]
   RewriteRule ^(.*)$ https://www.srripositivebuilders.com/$1 [L,R=301]

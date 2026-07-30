@@ -36,7 +36,7 @@ const PROJECTS: Project[] = [
   },
   {
     index: "03",
-    name: "GOVT HALL",
+    name: "DUSA SPORTS ACADEMY",
     spec: "TICINO · 2023 · 520 M²",
     material: "RAMMED EARTH",
     image: "/images/govt1.png",

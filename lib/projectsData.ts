@@ -258,7 +258,7 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
     coverImage: "/images/govt1.png",
     projects: [
       {
-        name: "GOVERNMENT HALL",
+        name: "DUSA SPORTS ACADEMY",
         location: "Erode",
         year: "2024",
         area: "15,000 sq ft",
