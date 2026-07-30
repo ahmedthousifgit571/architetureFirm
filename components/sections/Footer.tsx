@@ -37,8 +37,8 @@ function Group({ label, children }: { label: string; children: ReactNode }) {
 
 const itemClass = "font-grotesk text-[11px] tracking-[0.2em] text-plaster/75 transition-colors duration-200 flex items-center gap-2";
 
-const SocialIcon = ({ children }: { children: ReactNode }) => (
-  <a href="#" className="flex h-8 w-8 items-center justify-center bg-[#e84c17] text-white hover:opacity-80 transition-opacity">
+const SocialIcon = ({ href, children }: { href: string; children: ReactNode }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="flex h-8 w-8 items-center justify-center bg-[#e84c17] text-white hover:opacity-80 transition-opacity">
     {children}
   </a>
 );
@@ -74,24 +74,19 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-2 mt-6">
-              <SocialIcon>
+              <SocialIcon href="https://www.facebook.com/people/Srri-Positive-Builders/100083630523403/?_rdr">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                 </svg>
               </SocialIcon>
-              <SocialIcon>
+              <SocialIcon href="https://instagram.com/srri_positive_builders?igshid=YmMyMTA2M2Y=">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.902 4.902 0 0 1 1.153-1.772A4.887 4.887 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
                 </svg>
               </SocialIcon>
-              <SocialIcon>
+              <SocialIcon href="https://www.linkedin.com/in/subramanian-p-t-2a082b246">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
-                </svg>
-              </SocialIcon>
-              <SocialIcon>
-                <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
                 </svg>
               </SocialIcon>
             </div>

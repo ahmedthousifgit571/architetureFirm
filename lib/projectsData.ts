@@ -186,7 +186,7 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
     shortName: "APARTMENT",
     description:
       "Multi-storey residences that balance privacy with community — efficient plans, generous light, enduring structure.",
-    coverImage: "/images/TWO BLOCKS. OF G+10 APARTMENTS.png",
+    coverImage: "/images/two_blocks_g10_apartments.png",
     projects: [
       {
         name: "BVK BRINDAVAN",
