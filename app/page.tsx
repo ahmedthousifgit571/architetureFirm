@@ -4,6 +4,8 @@ import Manifesto from "@/components/sections/Manifesto";
 import Projects from "@/components/sections/Projects";
 import Clients from "@/components/sections/Clients";
 import About from "@/components/sections/About";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -17,12 +19,14 @@ export default function Home() {
       <main className="relative z-10 bg-plaster text-graphite">
         <Projects />
         <About />
+        <WhyChooseUs />
         <Manifesto />
 
         {/* INTERIOR CINEMATIC ZONE — second scrubbed flythrough, inside the villa */}
         <InteriorZoneLoader />
 
         <Clients />
+        <Testimonials />
         <Contact />
         <Footer />
       </main>
