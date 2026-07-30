@@ -124,6 +124,48 @@ html.lenis body {
   transform: translateY(-4px);
 }
 
+/* ————— Client register marquee ————— */
+/* Track holds 3 copies of the row, so shifting by one copy (-33.3333%) loops
+   seamlessly. Keep COPIES in Clients.tsx in sync with this value. */
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-33.3333%, 0, 0);
+  }
+}
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 7%,
+    #000 93%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 7%,
+    #000 93%,
+    transparent
+  );
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 48s) linear infinite;
+  will-change: transform;
+}
+/* Reversed playback carries the row left → right */
+.marquee-track[data-direction="right"] {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -133,5 +175,13 @@ html.lenis body {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+  /* Marquee stands still rather than snapping through its keyframes */
+  .marquee-track {
+    animation: none !important;
+  }
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }

@@ -10,6 +10,7 @@ const LINKS = [
   { label: "ABOUT", href: "#about", route: null },
   { label: "PROJECTS", href: "#projects", route: "/projects" },
   { label: "SERVICES", href: "#philosophy", route: null },
+  { label: "CLIENTS", href: "#clients", route: null },
   { label: "CONTACT", href: "#contact", route: null },
 ];
 

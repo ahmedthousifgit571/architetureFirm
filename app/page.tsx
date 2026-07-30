@@ -15,9 +15,9 @@ export default function Home() {
 
       {/* CONTENT ZONE — normal flow, never bound to the frame scrub window */}
       <main className="relative z-10 bg-plaster text-graphite">
+        <Projects />
         <About />
         <Manifesto />
-        <Projects />
 
         {/* INTERIOR CINEMATIC ZONE — second scrubbed flythrough, inside the villa */}
         <InteriorZoneLoader />

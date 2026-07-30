@@ -22,19 +22,59 @@ const CLIENTS = [
   "client16.png",
 ];
 
-function ClientCell({ file }: { file: string }) {
+/* Three registers, alternating travel direction. Cells are 1/6 of the sheet
+   width, so six logos read at a time on desktop. */
+const ROWS: { logos: string[]; direction: "left" | "right"; duration: string }[] = [
+  { logos: CLIENTS.slice(0, 6), direction: "left", duration: "28s" },
+  { logos: CLIENTS.slice(6, 11), direction: "right", duration: "32s" },
+  { logos: CLIENTS.slice(11, 16), direction: "left", duration: "30s" },
+];
+
+/* Must stay in sync with the -33.3333% end state of @keyframes marquee-x. */
+const COPIES = 3;
+
+function ClientCell({ file }: { file: string; }) {
   return (
-    <div
-      data-reveal
-      className="group flex min-h-[120px] items-center justify-center border-b border-r border-graphite/10 px-6 py-10 md:min-h-[150px] md:py-14"
-    >
+    <div className="flex h-[110px] w-[clamp(9rem,16.6667vw,14.5833rem)] shrink-0 items-center justify-center border-r border-graphite/10 px-6 md:h-[150px] md:px-8">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`/images/clients/${file}`}
-        alt={`client logo`}
+        alt="client logo"
         loading="lazy"
-        className="max-h-12 w-auto max-w-[75%] object-contain transition-all duration-500 md:max-h-14"
+        className="max-h-12 w-auto max-w-full object-contain md:max-h-14"
       />
+    </div>
+  );
+}
+
+function MarqueeRow({
+  logos,
+  direction,
+  duration,
+}: {
+  logos: string[];
+  direction: "left" | "right";
+  duration: string;
+}) {
+  return (
+    <div data-reveal className="marquee border-t border-graphite/10">
+      <div
+        className="marquee-track"
+        data-direction={direction}
+        style={{ ["--marquee-duration" as string]: duration }}
+      >
+        {Array.from({ length: COPIES }).map((_, copy) => (
+          <div
+            key={copy}
+            className="flex"
+            aria-hidden={copy > 0 ? true : undefined}
+          >
+            {logos.map((file) => (
+              <ClientCell key={file} file={file} />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -81,14 +121,13 @@ export default function Clients() {
           <div className="dim-line" />
         </div>
 
-        {/* Client register — hairline grid, logos in mono, colour on hover */}
-        <div className="mt-16 grid grid-cols-2 border-l border-t border-graphite/10 sm:grid-cols-3 lg:grid-cols-4">
-          {CLIENTS.map((file) => (
-            <ClientCell key={file} file={file} />
+        {/* Client register — hairline rows travelling in alternating directions */}
+        <div className="mt-16 border-b border-graphite/10">
+          {ROWS.map((row) => (
+            <MarqueeRow key={row.logos[0]} {...row} />
           ))}
         </div>
       </div>
     </section>
   );
 }
-

@@ -242,8 +242,8 @@ export default function About() {
             </ul>
 
             <div data-reveal className="mt-10">
-              <a href="#philosophy" onClick={(e) => goTo(e, "#philosophy")} className={CTA_CLASS}>
-                EXPLORE SERVICES
+              <a href="#projects" onClick={(e) => goTo(e, "#projects")} className={CTA_CLASS}>
+                EXPLORE PROJECTS
                 <span
                   aria-hidden
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -314,8 +314,8 @@ export default function About() {
             </ShowcaseCard>
 
             <div data-item>
-              <a href="#projects" onClick={(e) => goTo(e, "#projects")} className={CTA_CLASS}>
-                EXPLORE PROJECTS
+              <a href="#philosophy" onClick={(e) => goTo(e, "#philosophy")} className={CTA_CLASS}>
+                EXPLORE SERVICES
                 <span
                   aria-hidden
                   className="transition-transform duration-300 group-hover:translate-x-1"

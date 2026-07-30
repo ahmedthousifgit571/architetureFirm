@@ -1,27 +1,29 @@
 "use client";
 
 import { useRef, type MouseEvent, type ReactNode } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useReveal } from "@/hooks/useReveal";
 import { getLenis } from "@/hooks/useLenis";
 import { BRAND_NAME } from "@/lib/constants";
 
 const QUICK_LINKS = [
   { label: "Home", href: "#top" },
-  { label: "About Us", href: "#" },
-  { label: "Our Services", href: "#" },
-  { label: "Our Projects", href: "#" },
-  { label: "Our Clients", href: "#" },
-  { label: "Contact Us", href: "#" },
+  { label: "About Us", href: "#about" },
+  { label: "Our Services", href: "#philosophy" },
+  { label: "Our Projects", href: "#projects" },
+  { label: "Our Clients", href: "#clients" },
+  { label: "Contact Us", href: "#contact" },
 ];
 
 const OUR_PROJECTS = [
-  { label: "Residential Projects", href: "#" },
-  { label: "Commercial Projects", href: "#" },
-  { label: "Apartment Projects", href: "#" },
-  { label: "Roads & Culverts", href: "#" },
-  { label: "Government Projects", href: "#" },
-  { label: "Interior Projects", href: "#" },
-  { label: "Religious Projects", href: "#" },
+  { label: "Residential Projects", href: "/projects/residential" },
+  { label: "Commercial Projects", href: "/projects/commercial" },
+  { label: "Apartment Projects", href: "/projects/apartment" },
+  { label: "Roads & Culverts", href: "/projects/roads-culverts" },
+  { label: "Government Projects", href: "/projects/government" },
+  { label: "Interior Projects", href: "/projects/interior" },
+  { label: "Religious Projects", href: "/projects/religious" },
 ];
 
 function Group({ label, children }: { label: string; children: ReactNode }) {
@@ -43,6 +45,8 @@ const SocialIcon = ({ children }: { children: ReactNode }) => (
 
 export default function Footer() {
   const ref = useRef<HTMLElement | null>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   useReveal(ref);
 
   const scrollTo = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -96,7 +100,14 @@ export default function Footer() {
           <div className="grid grow gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-4xl">
             <Group label="QUICK LINKS">
               {QUICK_LINKS.map((l) => (
-                <a key={l.label} href={l.href} onClick={(e) => scrollTo(e, l.href)} className={`${itemClass} hover:text-plaster`}>
+                <a
+                  key={l.label}
+                  href={isHome ? l.href : `/${l.href}`}
+                  onClick={(e) => {
+                    if (isHome) scrollTo(e, l.href);
+                  }}
+                  className={`${itemClass} hover:text-plaster`}
+                >
                   <span className="text-[#e84c17] text-[10px]">▶</span> <span className="uppercase">{l.label}</span>
                 </a>
               ))}
@@ -104,9 +115,9 @@ export default function Footer() {
 
             <Group label="OUR PROJECTS">
               {OUR_PROJECTS.map((l) => (
-                <a key={l.label} href={l.href} className={`${itemClass} hover:text-plaster`}>
+                <Link key={l.label} href={l.href} className={`${itemClass} hover:text-plaster`}>
                   <span className="text-[#e84c17] text-[10px]">▶</span> <span className="uppercase">{l.label}</span>
-                </a>
+                </Link>
               ))}
             </Group>
 
