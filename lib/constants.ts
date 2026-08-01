@@ -3,7 +3,7 @@
 
 export const BRAND_NAME = "SRRI POSITIVE BUILDERS";
 export const BRAND_TAGLINE = "We take you from foundation to masterpiece.";
-export const BRAND_EMAIL = "studio@srripositivebuilders.com";
+export const BRAND_EMAIL = "info@srripositivebuilders.com";
 
 // WhatsApp: wa.me needs the country code with no "+" (India = 91). The prefilled
 // message avoids double dashes so it reads cleanly in the WhatsApp composer.

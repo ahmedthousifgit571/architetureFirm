@@ -77,14 +77,9 @@ export default function Manifesto() {
   return (
     <section ref={ref} id="philosophy" className="px-6 py-28 md:px-12 md:py-40">
       <div className="mx-auto max-w-[1400px]">
-        <div data-reveal className="flex items-baseline justify-between">
-          <p className="sheet-label text-oxide">SHT 01 — PHILOSOPHY</p>
-          <p className="font-grotesk text-[10px] tracking-[0.25em] text-concrete">A-101</p>
-        </div>
-
         <h2
           data-statement
-          className="mt-16 font-display font-medium leading-[1.05] tracking-[-0.035em]"
+          className="font-display font-medium leading-[1.05] tracking-[-0.035em]"
           style={{ fontSize: "clamp(2.5rem, 6.5vw, 6.5rem)" }}
         >
           {STATEMENT.split(" ").map((word, i) => (

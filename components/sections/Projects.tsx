@@ -39,24 +39,60 @@ const PROJECTS: Project[] = [
     name: "DUSA SPORTS ACADEMY",
     spec: "TICINO · 2023 · 520 M²",
     material: "RAMMED EARTH",
-    image: "/images/govt1.png",
+    image: "/images/dusa.png",
     span: "md:col-span-5",
     height: "h-72 md:h-[360px]",
   },
   {
     index: "04",
-    name: "INTERIOR FOLD",
-    spec: "KYOTO · 2023 · 290 M²",
-    material: "CHARRED TIMBER",
-    image: "/images/interior.png",
+    name: "PEACOCK GARDEN",
+    spec: "ERODE · 2025 · 3,500 SQ FT",
+    material: "TIMBER & STONE",
+    image: "/images/residential/peacock1.jpg",
+    span: "md:col-span-7 md:-mt-12",
+    height: "h-72 md:h-[480px]",
+  },
+  {
+    index: "05",
+    name: "AMMAN STEELS",
+    spec: "MADURAI · 2024 · 4,100 SQ FT",
+    material: "TIMBER & STONE",
+    image: "/images/residential/res3.png",
+    span: "md:col-span-7",
+    height: "h-72 md:h-[480px]",
+  },
+  {
+    index: "06",
+    name: "SANRAKS MAHAL",
+    spec: "SIVAGANGAI · 2024 · 32,000 SQ FT",
+    material: "GLASS & STEEL",
+    image: "/images/commercial/commercial-2.png",
+    span: "md:col-span-5 md:mt-12",
+    height: "h-72 md:h-[360px]",
+  },
+  {
+    index: "07",
+    name: "THIRUPARANKUNDRAM ROUND ABOUT",
+    spec: "MADURAI · 2022 · 30,000 SQ FT",
+    material: "EXPOSED BRICK",
+    image: "/images/govt/govt5.png",
+    span: "md:col-span-5",
+    height: "h-72 md:h-[360px]",
+  },
+  {
+    index: "08",
+    name: "MASJID RENOVATION",
+    spec: "ERODE · 2024 · 8,500 SQ FT",
+    material: "SANDSTONE",
+    image: "/images/religious/rel1.png",
     span: "md:col-span-7 md:-mt-12",
     height: "h-72 md:h-[480px]",
   },
 ];
 
-// oxide-outlined CTA — visible at rest (oxide border + oxide ink), fills oxide on hover
+// oxide-filled CTA — highlighted by default, outlines on hover
 const CTA_CLASS =
-  "group inline-flex items-center gap-3 border border-oxide px-7 py-4 font-grotesk text-[11px] tracking-[0.25em] text-oxide transition-colors duration-300 hover:bg-oxide hover:text-plaster focus-visible:bg-oxide focus-visible:text-plaster";
+  "group inline-flex items-center gap-3 border border-oxide bg-oxide px-7 py-4 font-grotesk text-[11px] tracking-[0.25em] text-plaster transition-colors duration-300 hover:bg-transparent hover:text-oxide focus-visible:bg-transparent focus-visible:text-oxide";
 
 export default function Projects() {
   const ref = useRef<HTMLElement | null>(null);
@@ -69,12 +105,7 @@ export default function Projects() {
       className="border-t border-graphite/10 px-6 py-28 md:px-12 md:py-40"
     >
       <div className="mx-auto max-w-[1400px]">
-        <div data-reveal className="flex items-baseline justify-between">
-          <p className="sheet-label text-oxide">SHT 02 — SELECTED PROJECTS</p>
-          <p className="font-grotesk text-[10px] tracking-[0.25em] text-concrete">A-201 · 4 WORKS</p>
-        </div>
-
-        <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-12">
+        <div className="mt-0 grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-12">
           {PROJECTS.map((p) => (
             <article key={p.index} data-reveal className={`group ${p.span}`}>
               <div className={`relative overflow-hidden ${p.height}`}>
@@ -85,20 +116,12 @@ export default function Projects() {
                   sizes="(min-width: 768px) 60vw, 100vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
-                {/* Oxide index — surfaces on hover */}
-                <span
-                  className="absolute left-5 top-4 font-grotesk text-4xl tabular-nums text-oxide opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-2"
-                  aria-hidden
-                >
-                  {p.index}
-                </span>
               </div>
               <div className="mt-4 flex items-baseline justify-between gap-4">
                 <h3 className="font-display text-lg font-medium tracking-[-0.01em]">
                   <span className="mr-3 font-grotesk text-xs text-oxide">{p.index}</span>
                   {p.name}
                 </h3>
-                <p className="font-grotesk text-[10px] tracking-[0.2em] text-concrete">{p.spec}</p>
               </div>
             </article>
           ))}

@@ -90,16 +90,9 @@ export default function Clients() {
       className="border-t border-graphite/10 px-6 py-28 md:px-12 md:py-40"
     >
       <div className="mx-auto max-w-[1400px]">
-        <div data-reveal className="flex items-baseline justify-between">
-          <p className="sheet-label text-oxide">SHT 03 — CLIENTS</p>
-          <p className="font-grotesk text-[10px] tracking-[0.25em] text-concrete">
-            A-301 · REGISTER
-          </p>
-        </div>
-
         <h2
           data-reveal
-          className="mt-16 max-w-3xl font-display font-medium leading-[1.05] tracking-[-0.03em]"
+          className="max-w-3xl font-display font-medium leading-[1.05] tracking-[-0.03em]"
           style={{ fontSize: "clamp(2rem, 4.5vw, 3.75rem)" }}
         >
           Trusted by{" "}

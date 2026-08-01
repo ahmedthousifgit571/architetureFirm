@@ -59,9 +59,7 @@ export default function Hero({ cinematicRef }: Props) {
       className="absolute inset-0 flex flex-col justify-end px-6 pb-14 pt-24 md:px-12 md:pb-16"
     >
       <div className="max-w-5xl">
-        <p data-hero className="sheet-label text-plaster/60">
-          SHT 00 — SITE&ensp;·&ensp;{BRAND_COORDS}&ensp;·&ensp;{BRAND_CITY}
-        </p>
+
         <h1
           data-hero
           className="mt-6 font-display font-semibold leading-[0.95] tracking-[-0.03em] text-plaster"

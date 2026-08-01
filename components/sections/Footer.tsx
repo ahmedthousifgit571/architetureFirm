@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useReveal } from "@/hooks/useReveal";
 import { getLenis } from "@/hooks/useLenis";
-import { BRAND_NAME } from "@/lib/constants";
+import { BRAND_NAME, BRAND_EMAIL } from "@/lib/constants";
 
 const QUICK_LINKS = [
   { label: "Home", href: "#top" },
@@ -143,24 +143,23 @@ export default function Footer() {
                 <div className="flex shrink-0 h-6 w-6 items-center justify-center bg-[#e84c17] text-white font-bold text-[10px]">
                   E
                 </div>
-                <p className={`${itemClass} break-all uppercase`}>
-                  info@srripositivebuilders.com
-                </p>
+                <a
+                  href={`mailto:${BRAND_EMAIL}`}
+                  className={`${itemClass} break-all uppercase hover:text-plaster`}
+                >
+                  {BRAND_EMAIL}
+                </a>
               </div>
             </Group>
           </div>
         </div>
 
-        <div data-reveal className="mt-20 flex flex-col gap-3 border-t border-plaster/15 pt-6 sm:flex-row sm:items-baseline sm:justify-between">
-          <p className="font-grotesk text-[10px] tracking-[0.25em] text-plaster/40 uppercase">
-            Copyright @2026. Powered By <span className="text-[#e84c17]">SCMAI Digital</span>
-          </p>
-        </div>
+
       </div>
 
-      <div aria-hidden className="select-none overflow-hidden">
-        <p className="mb-[-0.28em] cursor-default whitespace-nowrap text-center font-display text-[15vw] font-semibold leading-[0.9] tracking-[-0.03em] text-plaster transition-colors duration-300 hover:text-oxide">
-          SRRI
+      <div aria-hidden className="mt-16 md:mt-24 select-none overflow-hidden">
+        <p className="mb-[-0.05em] cursor-default whitespace-nowrap text-center font-display text-[6.5vw] md:text-[5vw] font-semibold leading-[0.9] tracking-[-0.03em] text-plaster transition-colors duration-300 hover:text-oxide uppercase">
+          SRRI POSITIVE BUILDERS
         </p>
       </div>
     </footer>

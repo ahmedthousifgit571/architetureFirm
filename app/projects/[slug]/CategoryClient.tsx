@@ -94,9 +94,6 @@ export default function CategoryClient() {
             <p className="sheet-label text-oxide">
               SHT 03.{String(catIndex + 1).padStart(2, "0")} — {category.shortName}
             </p>
-            <p className="font-grotesk text-[10px] tracking-[0.25em] text-plaster/40">
-              {category.projects.length} WORKS
-            </p>
           </div>
 
           <h1
@@ -148,14 +145,6 @@ export default function CategoryClient() {
 
                     {/* Gradient overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-graphite/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-                    {/* Oxide index — surfaces on hover */}
-                    <span
-                      className="absolute left-5 top-4 font-grotesk text-4xl tabular-nums text-oxide opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-2"
-                      aria-hidden
-                    >
-                      {projectNumber}
-                    </span>
 
                     {/* Project details on hover */}
                     <div className="absolute inset-x-0 bottom-0 translate-y-4 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">

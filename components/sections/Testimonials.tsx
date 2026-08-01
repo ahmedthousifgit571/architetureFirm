@@ -72,14 +72,10 @@ export default function Testimonials() {
     <section ref={containerRef} id="testimonials" className="border-t border-graphite/10 px-6 py-28 md:px-12 md:py-40 bg-[#f9f8f6]">
       <div className="mx-auto max-w-[1400px]">
         {/* Header */}
-        <div className="testimonial-header flex items-baseline justify-between mb-16">
-          <div>
-            <p className="sheet-label text-oxide">SHT 06 — CLIENT REVIEWS</p>
-            <h2 className="mt-6 font-display font-semibold leading-[1.08] tracking-[-0.03em] text-graphite" style={{ fontSize: "clamp(2rem, 3.8vw, 3.25rem)" }}>
-              What Our Clients Say
-            </h2>
-          </div>
-          <p className="font-grotesk text-[10px] tracking-[0.25em] text-concrete hidden sm:block">A-601 · TESTIMONIALS</p>
+        <div className="testimonial-header mb-16">
+          <h2 className="font-display font-semibold leading-[1.08] tracking-[-0.03em] text-graphite" style={{ fontSize: "clamp(2rem, 3.8vw, 3.25rem)" }}>
+            What Our Clients Say
+          </h2>
         </div>
 
         {/* Grid */}

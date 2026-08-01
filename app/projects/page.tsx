@@ -92,11 +92,6 @@ export default function ProjectsPage() {
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-graphite/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-80" />
 
-                  {/* Project count badge */}
-                  <span className="absolute right-4 top-4 rounded-full border border-plaster/30 bg-graphite/60 px-3 py-1 font-grotesk text-[10px] tracking-[0.2em] text-plaster/80 backdrop-blur-sm">
-                    {cat.projects.length} PROJECTS
-                  </span>
-
                   {/* Category number — surfaces on hover */}
                   <span
                     className="absolute left-5 top-4 font-grotesk text-5xl tabular-nums text-oxide opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-2"

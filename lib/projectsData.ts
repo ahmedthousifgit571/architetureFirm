@@ -29,6 +29,20 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
     coverImage: "/images/residential/res1.png",
     projects: [
       {
+        name: "PEACOCK VILLA I",
+        location: "Erode",
+        year: "2025",
+        area: "3,500 sq ft",
+        image: "/images/residential/peacock1.jpg",
+      },
+      {
+        name: "PEACOCK VILLA II",
+        location: "Erode",
+        year: "2025",
+        area: "3,800 sq ft",
+        image: "/images/residential/peacock2.jpg",
+      },
+      {
         name: "LAKE VIEW VILLA",
         location: "Erode",
         year: "2025",
@@ -43,8 +57,8 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
         image: "/images/residential/res2.png",
       },
       {
-        name: "HILLTOP BUNGALOW",
-        location: "Ooty",
+        name: "AMMAN STEELS",
+        location: "Madurai",
         year: "2024",
         area: "4,100 sq ft",
         image: "/images/residential/res3.png",
@@ -123,6 +137,27 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
     coverImage: "/images/commercial/commercial-1.png",
     projects: [
       {
+        name: "COMMERCIAL COMPLEX IX",
+        location: "Erode",
+        year: "2025",
+        area: "15,000 sq ft",
+        image: "/images/commercial/commercial-9.png",
+      },
+      {
+        name: "COMMERCIAL COMPLEX X",
+        location: "Erode",
+        year: "2025",
+        area: "16,500 sq ft",
+        image: "/images/commercial/commercial-10.png",
+      },
+      {
+        name: "COMMERCIAL COMPLEX XI",
+        location: "Erode",
+        year: "2025",
+        area: "14,000 sq ft",
+        image: "/images/commercial/commercial-11.png",
+      },
+      {
         name: "VLUX 3 STAR HOTEL",
         location: "Erode",
         year: "2025",
@@ -130,8 +165,8 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
         image: "/images/commercial/commercial-1.png",
       },
       {
-        name: "TECH PARK BLOCK A",
-        location: "Coimbatore",
+        name: "SANRAKS MAHAL",
+        location: "Sivagangai",
         year: "2024",
         area: "32,000 sq ft",
         image: "/images/commercial/commercial-2.png",
@@ -255,14 +290,14 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
     shortName: "GOVERNMENT",
     description:
       "Public buildings designed for civic dignity — functional, transparent, and built with accountability.",
-    coverImage: "/images/govt1.png",
+    coverImage: "/images/dusa.png",
     projects: [
       {
         name: "DUSA SPORTS ACADEMY",
         location: "Erode",
         year: "2024",
         area: "15,000 sq ft",
-        image: "/images/govt/govt1.png",
+        image: "/images/dusa.png",
       },
       {
         name: "BUS TERMINAL",
@@ -286,8 +321,8 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
         image: "/images/govt.png",
       },
       {
-        name: "CIVIC CENTER",
-        location: "Tiruppur",
+        name: "THIRUPARANKUNDRAM ROUND ABOUT",
+        location: "Madurai",
         year: "2022",
         area: "30,000 sq ft",
         image: "/images/govt/govt5.png",
@@ -341,7 +376,7 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
     coverImage: "/images/religious/rel1.png",
     projects: [
       {
-        name: "TEMPLE RENOVATION",
+        name: "MASJID RENOVATION",
         location: "Erode",
         year: "2024",
         area: "8,500 sq ft",

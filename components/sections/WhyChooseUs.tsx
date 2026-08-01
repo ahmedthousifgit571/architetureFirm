@@ -47,14 +47,8 @@ export default function WhyChooseUs() {
       className="border-t border-graphite/10 px-6 py-28 md:px-12 md:py-40"
     >
       <div className="mx-auto max-w-[1400px]">
-        {/* Section Header */}
-        <div data-reveal className="flex items-baseline justify-between">
-          <p className="sheet-label text-oxide">SHT 05 — PERFORMANCE ADVANTAGE</p>
-          <p className="font-grotesk text-[10px] tracking-[0.25em] text-concrete">A-501 · WHY CHOOSE US</p>
-        </div>
-
         {/* Content Grid */}
-        <div className="mt-16 grid grid-cols-1 gap-x-16 gap-y-12 md:grid-cols-12">
+        <div className="mt-0 grid grid-cols-1 gap-x-16 gap-y-12 md:grid-cols-12">
           {/* Left Column - List of points */}
           <div className="md:col-span-7">
             <h2
@@ -113,10 +107,12 @@ export default function WhyChooseUs() {
               </div>
 
               <div data-reveal className="mt-4">
-                <DimLine
-                  className="text-graphite/20"
-                  label="RAMCO SUPERCRETE & HINDU TAMIL AWARD"
-                />
+                <DimLine className="text-graphite/20" />
+                <div className="mt-3">
+                  <span className="inline-block bg-oxide px-3 py-1.5 font-grotesk text-[10px] tracking-[0.25em] text-plaster">
+                    RAMCO SUPERCRETE & HINDU TAMIL AWARD
+                  </span>
+                </div>
               </div>
             </div>
           </div>
